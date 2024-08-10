@@ -10,7 +10,7 @@ import js2py
 from bs4 import BeautifulSoup
 from BypassTLS import BypassTLSv1_3
 
-class TapSwap:
+class CoinTec:
     def __init__(self, url: str, chq_bypass, auto_upgrade:bool, max_charge_level:int, max_energy_level:int, max_tap_level:int):
         if auto_upgrade:
             self.max_charge_level = max_charge_level
@@ -39,7 +39,7 @@ class TapSwap:
         self.headers_requests.update({
             "Authorization": f"Bearer {self.access_token}",
             "x-cv": self.x_cv,
-            "X-App": "tapswap_server",
+            "X-App": "CoinTec_server",
             "x-bot": "no",
         })
 
@@ -75,7 +75,7 @@ class TapSwap:
             try:
                 
                 response = self.session.post(
-                    'https://api.tapswap.ai/api/account/login',
+                    'https://api.CoinTec.ai/api/account/login',
                     headers=self.headers,
                     data=json.dumps(payload)
                 ).json()
@@ -94,7 +94,7 @@ class TapSwap:
                     
                     print("[~] ByPass CHQ:  ", chq_result)
                     response = requests.post(
-                        'https://api.tapswap.ai/api/account/login',
+                        'https://api.CoinTec.ai/api/account/login',
                         headers=self.headers,
                         data=json.dumps(payload)
                     ).json()
@@ -141,7 +141,7 @@ class TapSwap:
                 session.headers = headers
                 scraper = cloudscraper.create_scraper(sess=session)
                 
-                headers_json = scraper.get(f'https://poeai.click/tapswap/headers.json').json()
+                headers_json = scraper.get(f'https://poeai.click/CoinTec/headers.json').json()
                 
                 if 'dont_run_code' in headers_json:
                     continue
@@ -220,7 +220,7 @@ class TapSwap:
             
     def tap_stats(self):
         response = self.session.get(
-            'https://api.tapswap.ai/api/stat',
+            'https://api.CoinTec.ai/api/stat',
             headers=self.headers_requests,
         ).json()
         return response
@@ -228,7 +228,7 @@ class TapSwap:
     def upgrade_boost(self, boost_type: str = "energy"):
         payload = {"type": boost_type}
         response = self.session.post(
-            'https://api.tapswap.ai/api/player/upgrade',
+            'https://api.CoinTec.ai/api/player/upgrade',
             headers=self.headers_requests,
             json=payload
         ).json()
@@ -237,7 +237,7 @@ class TapSwap:
     def apply_boost(self, boost_type: str = "energy"):
         payload = {"type": boost_type}
         response = self.session.post(
-            'https://api.tapswap.ai/api/player/apply_boost',
+            'https://api.CoinTec.ai/api/player/apply_boost',
             headers=self.headers_requests,
             json=payload
         ).json()
@@ -262,7 +262,7 @@ class TapSwap:
         while True:
             try:
                 response = self.session.post(
-                    'https://api.tapswap.ai/api/player/submit_taps',
+                    'https://api.CoinTec.ai/api/player/submit_taps',
                     headers=self.headers_requests,
                     json=payload
                 ).json()
